@@ -1,0 +1,9 @@
+options:
+  merge-default-rules: true
+  max-warnings: 0
+files:
+  include: 'src/**/*.s+(a|c)ss'
+rules:
+  nesting-depth:
+    - 2
+    - max-depth: 5

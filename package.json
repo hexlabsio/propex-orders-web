@@ -1,0 +1,71 @@
+{
+  "name": "propex-orders-web",
+  "version": "0.1.0",
+  "private": true,
+  "get-started": "npm install -S axios history moment node-sass react-moment react-redux react-router-dom redux redux-saga connected-react-router && npm install -D chai cross-env enzyme enzyme-adapter-react-16 husky redux-mock-store sass-lint sass-lint-auto-fix sinon tslint tslint-config-airbnb tslint-react typescript @types/node @types/react @types/react-redux @types/react-dom @types/jest @types/chai @types/enzyme @types/enzyme-adapter-react-16 @types/react-router-dom @types/redux-mock-store @types/sinon",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "connected-react-router": "^6.3.2",
+    "history": "^4.9.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-moment": "^0.8.4",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/enzyme": "^3.9.1",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "24.0.11",
+    "@types/node": "11.12.0",
+    "@types/react": "16.8.10",
+    "@types/react-dom": "16.8.3",
+    "@types/react-redux": "^7.0.5",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/redux-mock-store": "^1.0.0",
+    "@types/sinon": "^7.0.10",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "husky": "^1.3.1",
+    "react-scripts": "2.1.8",
+    "redux-mock-store": "^1.5.3",
+    "sass-lint": "^1.12.1",
+    "sass-lint-auto-fix": "^0.16.1",
+    "sinon": "^7.3.1",
+    "tslint": "^5.14.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-react": "^4.0.0",
+    "typescript": "3.3.4000"
+  },
+  "scripts": {
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "lint:fix": "tslint --project tsconfig.json --config tslint.json --fix",
+    "sass-lint": "sass-lint -v",
+    "sass-lint:fix": "sass-lint-auto-fix",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "cross-env CI=true react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm run sass-lint && npm test"
+    }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

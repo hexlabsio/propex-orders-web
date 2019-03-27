@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router';
 import { default as rootSaga } from './index-sagas';
 import { default as initialRootState } from './index-state';
+import Orders from './features/Orders';
 
 const store = configureStore(initialRootState);
 
@@ -16,7 +17,7 @@ ReactDOM.render((
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route exact={true} path="/" render={() => (<div>Match</div>)} />
+        <Route exact={true} path="/" component={Orders} />
         <Route render={() => (<div>Miss</div>)} />
       </Switch>
     </ConnectedRouter>

@@ -1,0 +1,69 @@
+@import '../../../colors'
+
+.products-panel
+  flex: 5
+
+  .products-panel-content
+    flex: 1
+    overflow: scroll
+    padding: 3em
+    text-align: center
+
+    .fa-spinner
+      font-size: 3em
+
+.order-products
+  display: flex
+  flex-direction: column
+  margin-bottom: 3em
+
+  .order-products-title
+    display: flex
+
+    &>div
+      flex: 1
+
+  .order-products-content
+    border: 1px solid $porcelain
+    border-radius: .25em
+    display: flex
+    flex-direction: column
+    text-align: center
+
+    .header-row
+      align-items: center
+      border-bottom: 1px solid $gainsboro
+      display: flex
+
+      .order-name
+        font-size: .8em
+        font-weight: 100
+
+      .order-time
+        font-size: .7em
+        font-weight: 100
+
+      .cell,
+      .cell-s
+        font-size: 1.25em
+        font-weight: 100
+
+      .cell-s
+        &:hover
+          background-color: $humming-bird
+          cursor: pointer
+
+    .row
+      display: flex
+
+      &:nth-child(2n+1)
+        background-color: $snow
+
+    .cell
+      flex: 3
+      padding: .5em
+
+    .cell-s
+      color: $mulled-wine
+      flex: 1
+      padding: .5em

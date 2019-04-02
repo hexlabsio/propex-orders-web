@@ -2,8 +2,12 @@
   "name": "propex-orders-web",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "get-started": "npm install -S axios history moment node-sass react-moment react-redux react-router-dom redux redux-saga connected-react-router && npm install -D chai cross-env enzyme enzyme-adapter-react-16 husky redux-mock-store sass-lint sass-lint-auto-fix sinon tslint tslint-config-airbnb tslint-react typescript @types/node @types/react @types/react-redux @types/react-dom @types/jest @types/chai @types/enzyme @types/enzyme-adapter-react-16 @types/react-router-dom @types/redux-mock-store @types/sinon",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-solid-svg-icons": "^5.8.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.18.0",
     "connected-react-router": "^6.3.2",
     "history": "^4.9.0",

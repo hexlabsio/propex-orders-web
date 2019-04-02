@@ -1,0 +1,33 @@
+@import '../../../colors'
+
+.operation-bar
+  align-items: center
+  display: flex
+  flex-wrap: wrap
+
+  .operation-search
+    border: 1px solid $gainsboro
+    border-radius: 1em
+    flex: 1
+    font-size: 1.5em
+    font-weight: 100
+    margin: .5em
+    outline: none
+    padding: .5em 1em
+
+    &:focus
+      border: 1px solid $iris-blue
+
+  .operations
+    display: flex
+    margin: 0 1em
+
+    .operation
+      background-color: $dodger-blue
+      border-radius: .25em
+      color: $white
+      margin-right: .5em
+      padding: .6em 1em
+
+      svg
+        margin-right: .5em

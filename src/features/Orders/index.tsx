@@ -1,23 +1,34 @@
 import { default as React } from 'react';
 import { OrdersState } from './index-state';
-import { getOrders } from './index-actions';
+import { GET_ORDERS_REQUEST, getOrders, SEARCH_UPDATED, searchUpdated } from './index-actions';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { RootState } from '../../index-state';
+import { default as OrderPanel } from './components/OrderPanel';
+import { default as ProductPanel } from  './components/ProductPanel';
+import './index.sass';
 
 interface StateProps extends OrdersState { }
 
 interface ActionProps {
-  getOrders: () => any;
+  getOrders: () => GET_ORDERS_REQUEST;
+  searchUpdated: (search: string) => SEARCH_UPDATED;
 }
 
-export interface Props extends StateProps, ActionProps{
-
-}
+export interface Props extends StateProps, ActionProps { }
 
 export class Orders extends React.Component<Props> {
+
+  componentDidMount() {
+    this.props.getOrders();
+  }
+
   render(): React.ReactNode {
-    return <div onClick={() => this.props.getOrders()}>Hello</div>;
+    return (
+      <div className="orders-container">
+        <OrderPanel {...this.props}/>
+        <ProductPanel  {...this.props} searchUpdated={this.props.searchUpdated}/>
+      </div>
+    );
   }
 }
 
@@ -25,4 +36,6 @@ export const stateToProps: (state: RootState) => StateProps = state => ({
   ...state.orders,
 });
 
-export default connect(stateToProps, dispatch => bindActionCreators({ getOrders }, dispatch))(Orders);
+const dispatchToProps: ActionProps = { getOrders, searchUpdated };
+
+export default connect(stateToProps, dispatchToProps)(Orders);

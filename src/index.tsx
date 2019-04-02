@@ -8,6 +8,9 @@ import { Route, Switch } from 'react-router';
 import { default as rootSaga } from './index-sagas';
 import { default as initialRootState } from './index-state';
 import Orders from './features/Orders';
+import { default as PropexHeader } from './components/header';
+import './index.sass';
+import './fonts.sass';
 
 const store = configureStore(initialRootState);
 
@@ -16,8 +19,9 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render((
   <Provider store={store}>
     <ConnectedRouter history={history}>
+      <PropexHeader user={{ name: 'Chris Barbour', access: 'Administrator' }}/>
       <Switch>
-        <Route exact={true} path="/" component={Orders} />
+        <Route exact={true} path="/orders" component={Orders} />
         <Route render={() => (<div>Miss</div>)} />
       </Switch>
     </ConnectedRouter>

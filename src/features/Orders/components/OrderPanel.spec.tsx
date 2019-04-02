@@ -10,9 +10,11 @@ import { Order } from '../index-state';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('<OrderPanel />', () => {
-  it('should render when no orders', () => {
+  it('should render with message when no orders', () => {
     const orderPanel = shallow(<OrderPanel orders={[]} loading={false}/>);
-    expect(orderPanel.find('.order-panel')).to.have.lengthOf(1);
+    const panel = orderPanel.find('.order-panel');
+    expect(panel).to.have.lengthOf(1);
+    expect(panel.text()).to.equal('No Orders Found');
   });
 
   it('should render loading icon when loading', () => {
@@ -35,7 +37,7 @@ describe('<OrderPanel />', () => {
     expect(renderedOrders.last().find('.order-time').text()).to.equal('3rd Jan 1970');
   });
 
-  it('should display correct date and zone', () => {
+  it('should display human readable date format', () => {
     const orders: Order[] = [
       { order: '1', dateTime: 1554119390, products: [] },
     ];

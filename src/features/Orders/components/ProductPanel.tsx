@@ -8,10 +8,10 @@ import * as moment from 'moment';
 import './ProductPanel.sass';
 
 export interface Props {
-  orders: Order[];
-  loading: boolean;
-  searchText: string;
-  searchUpdated: (search: string) => void;
+  orders?: Order[];
+  loading?: boolean;
+  searchText?: string;
+  searchUpdated?: (search: string) => void;
 }
 
 export const order = (order: Order, fullSize: boolean) => {
@@ -44,7 +44,7 @@ export const order = (order: Order, fullSize: boolean) => {
   );
 };
 
-const productPanel = ({ orders = [], loading = false, searchText, searchUpdated }: Props) => {
+const productPanel = ({ orders = [], loading = false, searchText = '', searchUpdated = () => {} }: Props) => {
   const operationBarProps: OperationBarProps = {
     search: { text: searchText, onChange: searchUpdated },
     operations: [
@@ -53,11 +53,23 @@ const productPanel = ({ orders = [], loading = false, searchText, searchUpdated 
     ],
     operationClicked: (key: string) => {},
   };
-  return (
-    <div className="products-panel">
+  const empty = () => (
+    <div className="products-panel-content">
+      <div className="empty-message">
+        No Orders Found <a href="#">Click here</a> to upload some now.
+      </div>
+    </div>
+  );
+  const topPanel = () => (
+      <>
       <div className="products-panel-top">
         {!loading ? <OperationBar {...operationBarProps}/> : <></>}
       </div>
+    </>
+  );
+  return (
+    <div className="products-panel">
+      {orders.length === 0 && !loading ? empty() : topPanel()}
       <div className="products-panel-content">
         {loading ? <FontAwesomeIcon icon={faSpinner} spin={true}/> : orders.map((order, index) => <OrderComponent {...order} key={`${index}_${order.order}`} />)}
       </div>

@@ -28,8 +28,8 @@ export const order = (order: Order) => {
 const orderPanel = ({ orders = [], loading = false }: Props) => {
   return (
     <div id="order-panel" className="order-panel">
-      <div className="order-panel-top">
-        {loading ? <FontAwesomeIcon spin={true} icon={faSpinner}/> : 'All Orders'}
+      <div className={`order-panel-top ${orders.length === 0 ? 'empty' : 'full'}`}>
+        {loading ? <FontAwesomeIcon spin={true} icon={faSpinner}/> : (orders.length === 0 ? 'No Orders Found' : 'All Orders')}
       </div>
       <div className="order-panel-content">
         {orders.map((order, index) => <OrderComponent {...order} key={`${index}_${order.order}`} />)}

@@ -1,5 +1,5 @@
 import { default as React } from 'react';
-import { OrdersState } from './index-state';
+import { Order, OrdersState, Product } from './index-state';
 import { GET_ORDERS_REQUEST, getOrders, SEARCH_UPDATED, searchUpdated } from './index-actions';
 import { connect } from 'react-redux';
 import { RootState } from '../../index-state';
@@ -22,11 +22,26 @@ export class Orders extends React.Component<Props> {
     if (this.props.orders.length === 0) this.props.getOrders();
   }
 
+  static matches(item: string, filter: string): boolean {
+    const filters = filter.split(' ');
+    return !!filters.find(filter => item.toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+  }
+
+  static productMatches(product: Product, filter: string): boolean {
+    return Orders.matches(product.model, filter) || Orders.matches(product.serial, filter);
+  }
+
+  static orderMatches(order: Order, filter: string): boolean {
+    return Orders.matches(order.order, filter) || !!order.products.find(product => Orders.productMatches(product, filter));
+  }
+
   render(): React.ReactNode {
+    const filteredOrders = this.props.searchText === '' ? this.props.orders : this.props.orders.filter(order => Orders.orderMatches(order, this.props.searchText))
+      .map(order => ({ ...order, products: order.products.filter(product => Orders.productMatches(product, this.props.searchText)) }));
     return (
       <div className="orders-container">
-        <OrderPanel {...this.props}/>
-        <ProductPanel  {...this.props} searchUpdated={this.props.searchUpdated}/>
+        <OrderPanel orders={filteredOrders} loading={this.props.loading}/>
+        <ProductPanel  {...this.props} orders={filteredOrders}/>
       </div>
     );
   }

@@ -6,12 +6,14 @@ export interface OrdersState {
 }
 
 export interface Order {
+  identifier?: string;
   order: string;
   dateTime: number;
   products: Product[];
 }
 
 export interface Product {
+  identifier?: string;
   serial: string;
   model: string;
 }

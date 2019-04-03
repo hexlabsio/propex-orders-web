@@ -11,6 +11,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { orderFound, modelFound, serialFound, clearUpload, uploadRequested } from './index-actions';
+import uuid from 'uuid';
 
 interface StateProps extends UploadState { }
 
@@ -40,7 +41,7 @@ export class Upload extends React.Component<Props> {
         const input = e.target as HTMLInputElement;
         const item = input.value;
         input.value = '';
-        if (item.length === 5) this.props.orderFound({ order: item, dateTime: moment.utc().unix(), products: [] });
+        if (item.length === 5) this.props.orderFound({ identifier: uuid(), order: item, dateTime: moment.utc().unix(), products: [] });
         else if (this.props.productAdded) this.props.serialFound(item);
         else this.props.modelFound(item);
       }
@@ -52,14 +53,8 @@ export class Upload extends React.Component<Props> {
     ];
     const operationClicked = (operation: string) => {
       switch (operation) {
-        case 'upload': {
-          this.props.uploadRequested(this.props.orders);
-          break;
-        }
-        default: {
-          this.focusBarcodeInput();
-          this.props.clearUpload();
-        }
+        case 'upload': { this.props.uploadRequested(this.props.orders); break; }
+        default: { this.focusBarcodeInput(); this.props.clearUpload(); }
       }
     };
     return (
@@ -82,7 +77,7 @@ export class Upload extends React.Component<Props> {
             <OperationBar  operations={operations} operationClicked={operationClicked}/>
           </div>
           <div className="products-panel-content upload-content">
-            {orders.map(order => <OrderComponent key={order.order} order={order} />)}
+            {orders.map(order => <OrderComponent key={order.identifier} order={order} />)}
           </div>
         </div>
       </div>

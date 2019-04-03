@@ -27,15 +27,15 @@ describe('<ProductPanel />', () => {
 
   it('should list all orders and products', () => {
     const orders: Order[] = [
-      { order: '1', dateTime: 1, products: [
-          { serial: 'a', model: 'b' },
-          { serial: 'c', model: 'd' },
+      { identifier: '1', order: '1', dateTime: 1, products: [
+          { identifier: 'a', serial: 'a', model: 'b' },
+          { identifier: 'b', serial: 'c', model: 'd' },
       ] },
-      { order: '2', dateTime: 176400, products: [
-          { serial: 'e', model: 'f' },
+      { identifier: '2', order: '2', dateTime: 176400, products: [
+          { identifier: 'c', serial: 'e', model: 'f' },
       ] },
     ];
-    const productsPanel = mount(<ProductPanel orders={orders}/>);
+    const productsPanel = mount(<MemoryRouter><ProductPanel orders={orders}/></MemoryRouter>);
     const renderedOrders = productsPanel.find('.order-products');
     expect(renderedOrders).to.have.lengthOf(2);
 

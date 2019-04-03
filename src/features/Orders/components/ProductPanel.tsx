@@ -18,13 +18,13 @@ const productPanel = ({ orders = [], loading = false, searchText = '', searchUpd
   const operationBarProps: OperationBarProps = {
     search: { text: searchText, onChange: searchUpdated },
     operations: [
-      { key: 'upload', label: 'Upload', enabled: true, displayed: true, loading: false, icon: faUpload },
+      { key: 'upload', label: 'Upload', enabled: true, displayed: true, loading: false, icon: faUpload, link: '/upload' },
       { key: 'export', label: 'Export', enabled: true, displayed: true, loading: false, icon: faDownload },
     ],
     operationClicked: (key: string) => {},
   };
   const scrollTo = (order: Order) => {
-    const item = document.getElementById(`order-${order.order}`);
+    const item = document.getElementById(`order-${order.identifier}`);
     if (item) item.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   const empty = () => (
@@ -41,9 +41,9 @@ const productPanel = ({ orders = [], loading = false, searchText = '', searchUpd
   );
   return (
     <div className="products-panel">
-      {orders.length === 0 && !loading ? <></> : topPanel()}
+      {orders.length === 0 && !loading && searchText === '' ? <></> : topPanel()}
       <div className="products-panel-content">
-        {loading ? <FontAwesomeIcon icon={faSpinner} spin={true}/> : (orders.length === 0 ? empty() : orders.map((order, index) => <OrderComponent order={order} onClick={scrollTo} key={`${index}_${order.order}`} />))}
+        {loading ? <FontAwesomeIcon icon={faSpinner} spin={true}/> : (orders.length === 0 && searchText === '' ? empty() : orders.map(order => <OrderComponent order={order} onClick={scrollTo} key={order.identifier} />))}
       </div>
     </div>
   );

@@ -10,14 +10,14 @@ export interface Props {
 export const order = ({ order, onClick = () => {} }: Props) => {
   const time = moment.unix(order.dateTime).format('Do MMM YYYY');
   const productRow = (product: Product, index: number) => (
-    <div className="row" key={`${order.order}-${product.serial}`}>
+    <div className="row" key={product.identifier}>
       <div className="cell-s">{index + 1}</div>
       <div className="cell">{product.model}</div>
       <div className="cell">{product.serial}</div>
     </div>
   );
   return (
-    <div id={`product-${order.order}`} className="order-products">
+    <div id={`product-${order.identifier}`} className="order-products">
       <div className="order-products-content">
         <div className="header-row">
           <div className="cell-s" onClick={() => onClick(order)}>

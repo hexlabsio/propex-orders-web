@@ -1,0 +1,39 @@
+version: 2
+jobs:
+  build:
+    machine:
+      enabled: true
+    working_directory: ~/kloudformation-runner
+    steps:
+    - checkout
+
+    - run:
+        name: Download KloudFormation
+        command:  curl -sSL install.kloudformation.hexlabs.io | sh -local
+
+    - run:
+        name: Transpile Stack
+        command:  ./kloudformation.sh -stack-file .circleci/Stack.kt -m s3@0.1.8
+
+    - store_artifacts:
+        path: template.yml
+
+    - run:
+        name: Install
+        command: npm install
+
+    - run:
+        name: Lint
+        command: npm run lint
+
+    - run:
+        name: Sass Lint
+        command: npm run sass-lint
+
+    - run:
+        name: Test
+        command: npm test
+
+    - run:
+        name: Production Build
+        command: npm run build

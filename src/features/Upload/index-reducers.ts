@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import * as Actions from './index-actions';
 import { default as initialState, UploadState } from './index-state';
 import { Product } from '../Orders/index-state';
+import uuid from 'uuid';
 
 const reducer: Reducer<UploadState, Actions.ACTIONS> = (state = initialState, action) => {
   switch (action.type) {
@@ -17,7 +18,7 @@ const modifyLatestProduct = (state: UploadState, operation: (product: Product) =
   if (state.orders.length === 0) return state;
   const latestOrder = state.orders[state.orders.length - 1];
   if (!state.productAdded || latestOrder.products.length === 0) {
-    const updatedProduct = operation({ model: '', serial: '' });
+    const updatedProduct = operation({ identifier: uuid(), model: '', serial: '' });
     const updatedOrder = { ...latestOrder, products: [...latestOrder.products, updatedProduct] };
     return { ...state, productAdded: true,  orders: replaceOrAddLast(state.orders, updatedOrder) };
   }

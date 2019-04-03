@@ -9,7 +9,7 @@ jobs:
 
     - run:
         name: Download KloudFormation
-        command:  curl -sSL install.kloudformation.hexlabs.io | sh -local
+        command:  curl -sSL install.kloudformation.hexlabs.io | sh -s -- -local
 
     - run:
         name: Transpile Stack

@@ -7,9 +7,9 @@ import { Order } from '../Orders/index-state';
 import { default as OrderComponent } from '../Orders/components/Order';
 import chunk from '../../chunk';
 import * as moment from 'moment';
-import OperationBar, {Operation} from '../Orders/components/OperationBar';
-import {faUpload} from '@fortawesome/free-solid-svg-icons/faUpload';
-import {faBackspace, faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import OperationBar, { Operation } from '../Orders/components/OperationBar';
+import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
+import { faBackspace, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 interface StateProps extends UploadState { }
 

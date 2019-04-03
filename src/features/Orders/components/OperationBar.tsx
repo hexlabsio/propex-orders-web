@@ -7,7 +7,7 @@ import { opButton as OpButton } from './OperationBar';
 import './OperationBar.sass';
 
 export interface Props {
-  search: SearchProps;
+  search?: SearchProps;
   operations: Operation[];
   operationClicked: (key: string) => void;
 }
@@ -50,7 +50,7 @@ export const opButton = ({ operation, onClick }: OpButtonProps) => {
 const operationBar = (props: Props) => {
   return (
     <div className="operation-bar">
-      <input type="search" placeholder="Search..." value={props.search.text} onChange={e => props.search.onChange(e.target.value)} className="operation-search"/>
+      {props.search ? <input type="search" placeholder="Search..." value={props.search.text} onChange={e => props.search ? props.search.onChange(e.target.value) : {}} className="operation-search"/> : <></>}
       <div className="operations">
         {props.operations.map(operation => <OpButton key={operation.key} operation={operation} onClick={props.operationClicked}/>)}
       </div>

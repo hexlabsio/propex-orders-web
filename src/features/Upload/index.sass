@@ -1,0 +1,31 @@
+@import '../../colors'
+
+.upload-container
+  display: flex
+  flex: 1
+
+  &>div
+    display: flex
+    flex-direction: column
+
+  .barcode-wrapper
+    display: flex
+
+  .barcode-input
+    border: 1px solid $gainsboro
+    border-radius: .25em
+    flex: 1
+    font-size: 1.4em
+    margin: 1em
+    padding: .5em
+
+    &:focus
+      border: 1px solid $iris-blue
+
+  .upload-content
+    border-top: 1px solid $gainsboro
+
+.operation
+  &.operation-cancel
+    background-color: $burnt-orange
+

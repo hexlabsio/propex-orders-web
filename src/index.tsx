@@ -7,10 +7,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router';
 import { default as rootSaga } from './index-sagas';
 import { default as initialRootState } from './index-state';
-import Orders from './features/Orders';
 import { default as PropexHeader } from './components/header';
 import './index.sass';
 import './fonts.sass';
+import Orders from './features/Orders';
+import Upload from './features/Upload';
 
 const store = configureStore(initialRootState);
 
@@ -22,6 +23,7 @@ ReactDOM.render((
       <PropexHeader user={{ name: 'Chris Barbour', access: 'Administrator' }}/>
       <Switch>
         <Route exact={true} path="/orders" component={Orders} />
+        <Route exact={true} path="/upload" component={Upload} />
         <Route render={() => (<div>Miss</div>)} />
       </Switch>
     </ConnectedRouter>

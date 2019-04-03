@@ -1,9 +1,11 @@
-import { OrdersState, default as initialOrdersState } from './features/Orders/index-state';
 import { RouterState } from 'connected-react-router';
+import { OrdersState, default as initialOrdersState } from './features/Orders/index-state';
+import { UploadState, default as initialUploadState } from './features/Upload/index-state';
 
 export interface RootState {
   router?: RouterState;
   orders: OrdersState;
+  upload: UploadState;
 }
 
 export type Collection<T> = Resource<{}> & {
@@ -25,6 +27,7 @@ export interface ApiOperation {
 
 const initialRootState: RootState = {
   orders: initialOrdersState,
+  upload: initialUploadState,
 };
 
 export default initialRootState;

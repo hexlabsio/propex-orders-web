@@ -19,7 +19,7 @@ export interface Props extends StateProps, ActionProps { }
 export class Orders extends React.Component<Props> {
 
   componentDidMount() {
-    this.props.getOrders();
+    if (this.props.orders.length === 0) this.props.getOrders();
   }
 
   render(): React.ReactNode {

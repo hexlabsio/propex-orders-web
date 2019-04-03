@@ -6,15 +6,18 @@ import ProductPanel from './ProductPanel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Order } from '../index-state';
+import { MemoryRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('<ProductPanel />', () => {
   it('should render with message when no orders', () => {
-    const productsPanel = shallow(<ProductPanel />);
+    const productsPanel = mount(<MemoryRouter><ProductPanel /></MemoryRouter>);
     const panel = productsPanel.find('.products-panel');
     expect(panel).to.have.lengthOf(1);
     expect(panel.text()).to.equal('No Orders Found Click here to upload some now.');
+    expect(panel.contains(<Link to="/upload">Click here</Link>)).to.be.true;
   });
 
   it('should render loading icon when loading', () => {
@@ -22,7 +25,7 @@ describe('<ProductPanel />', () => {
     expect(productsPanel.contains(<FontAwesomeIcon icon={faSpinner} spin={true}/>)).to.be.true;
   });
 
-  it('should list all orders', () => {
+  it('should list all orders and products', () => {
     const orders: Order[] = [
       { order: '1', dateTime: 1, products: [
           { serial: 'a', model: 'b' },

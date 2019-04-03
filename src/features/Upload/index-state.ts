@@ -1,10 +1,13 @@
+import { Order } from '../Orders/index-state';
 
 export interface UploadState {
-  a: string;
+  productAdded: boolean;
+  orders: Order[];
 }
 
 const initialState: UploadState = {
-  a: 'a',
+  orders: [],
+  productAdded: false,
 };
 
 export default initialState;

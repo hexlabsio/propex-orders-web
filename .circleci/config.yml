@@ -13,7 +13,7 @@ jobs:
 
     - run:
         name: Transpile Stack
-        command:  ./kloudformation.sh deploy -stack-name propex-orders-web -stack-file .circleci/Stack.kt -m s3@0.1.8
+        command:  ./kloudformation.sh deploy -stack-name propex-orders-web -stack-file .circleci/stack/Stack.kt -m s3@0.1.9
 
     - store_artifacts:
         path: template.yml

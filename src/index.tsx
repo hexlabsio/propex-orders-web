@@ -15,6 +15,8 @@ import Upload from './features/Upload';
 
 const store = configureStore(initialRootState);
 
+export const apiEndpoint = process.env.REACT_APP_ENV === 'production' ? 'https://wlm6btns8j.execute-api.eu-west-1.amazonaws.com/dev' : '';
+
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render((

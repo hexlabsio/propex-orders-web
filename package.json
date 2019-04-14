@@ -55,8 +55,8 @@
     "lint:fix": "tslint --project tsconfig.json --config tslint.json --fix",
     "sass-lint": "sass-lint -v",
     "sass-lint:fix": "sass-lint-auto-fix",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_ENV=development react-scripts start",
+    "build": "REACT_APP_ENV=production react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

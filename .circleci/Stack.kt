@@ -3,7 +3,7 @@ import io.kloudformation.KloudFormation
 import io.kloudformation.StackBuilder
 
 class Stack: StackBuilder {
-    override fun KloudFormation.create() {
+    override fun KloudFormation.create(args: List<String>) {
         s3Website {
             s3Bucket { modify { bucketName(+"propex-orders-web") }}
         }

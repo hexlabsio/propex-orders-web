@@ -1,8 +1,29 @@
 @import '../../../colors'
 
+.product-actions
+  align-items: center
+  color: $mulled-wine
+  display: flex
+  justify-content: center
+
+  .disabled-action
+    color: $gainsboro
+    margin-left: .25em
+    margin-right: .25em
+
+  .enabled-action
+    cursor: pointer
+    margin-left: .25em
+    margin-right: .25em
+
+    &:hover
+      color: $dodger-blue
+
 .order-panel
   border-right: 1px solid $porcelain
+  display: flex
   flex: 1
+  flex-direction: column
 
   .order-panel-top,
   .order
@@ -23,3 +44,7 @@
       .order-time
         font-size: .8em
         font-weight: 100
+
+@media only screen and (max-width: 800px)
+  .order-panel
+    display: none

@@ -43,13 +43,20 @@ describe('<ProductPanel />', () => {
     expect(renderedOrders.first().find('.order-time').text()).to.equal('1st Jan 1970');
     const productRows = renderedOrders.first().find('.row');
     expect(productRows).to.have.lengthOf(2);
-    expect(productRows.first().text()).to.equal('1ba');
-    expect(productRows.last().text()).to.equal('2dc');
+    const firstRowCells = productRows.first().find('.cell');
+    expect(firstRowCells).to.have.lengthOf(3);
+    const cellContent = firstRowCells.map(cell => cell.childAt(0).props().value);
+    expect(cellContent[0], 'b');
+    expect(cellContent[0], 'a');
+    const lastRowCells = productRows.last().find('.cell');
+    expect(lastRowCells).to.have.lengthOf(3);
+    const cell2Content = lastRowCells.map(cell => cell.childAt(0).props().value);
+    expect(cell2Content[0], 'd');
+    expect(cell2Content[0], 'c');
 
     expect(renderedOrders.last().find('.order-name').text()).to.equal('2');
     expect(renderedOrders.last().find('.order-time').text()).to.equal('3rd Jan 1970');
     const productRows2 = renderedOrders.last().find('.row');
     expect(productRows2).to.have.lengthOf(1);
-    expect(productRows2.first().text()).to.equal('1fe');
   });
 });

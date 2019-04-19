@@ -3,7 +3,7 @@ import { UploadState } from './index-state';
 import { connect } from 'react-redux';
 import { RootState } from '../../index-state';
 import './index.sass';
-import { Order } from '../Orders/index-state';
+import { Order, ProductEvents } from '../Orders/index-state';
 import { default as OrderComponent } from '../Orders/components/Order';
 import * as moment from 'moment';
 import OperationBar, { Operation } from '../Orders/components/OperationBar';
@@ -57,6 +57,14 @@ export class Upload extends React.Component<Props> {
         default: { this.focusBarcodeInput(); this.props.clearUpload(); }
       }
     };
+    const productEvents: ProductEvents = {
+      modelUpdated: () => {},
+      serialUpdated: () => {},
+      editClicked: () => {},
+      deleteClicked: () => {},
+      saveClicked: () => {},
+      cancelClicked: () => {},
+    };
     return (
       <div className="upload-container">
         <div className="products-panel">
@@ -77,7 +85,7 @@ export class Upload extends React.Component<Props> {
             <OperationBar  operations={operations} operationClicked={operationClicked}/>
           </div>
           <div className="products-panel-content upload-content">
-            {orders.map(order => <OrderComponent key={order.identifier} order={order} />)}
+            {orders.map(order => <OrderComponent key={order.identifier} productEvents={productEvents} order={order} />)}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { default as React } from 'react';
-import { Order, OrdersState, Product } from './index-state';
-import { GET_ORDERS_REQUEST, getOrders, SEARCH_UPDATED, searchUpdated } from './index-actions';
+import { Order, OrdersState, Product, ProductEvents } from './index-state';
+import * as Actions from './index-actions';
 import { connect } from 'react-redux';
 import { RootState } from '../../index-state';
 import { default as OrderPanel } from './components/OrderPanel';
@@ -10,8 +10,14 @@ import './index.sass';
 interface StateProps extends OrdersState { }
 
 interface ActionProps {
-  getOrders: () => GET_ORDERS_REQUEST;
-  searchUpdated: (search: string) => SEARCH_UPDATED;
+  getOrders: () => Actions.GET_ORDERS_REQUEST;
+  searchUpdated: (search: string) => Actions.SEARCH_UPDATED;
+  productEditClicked: (product: Product) => Actions.PRODUCT_EDIT_CLICKED;
+  productModelUpdated: (identifier: string, model: string) => Actions.PRODUCT_MODEL_UPDATED;
+  productSerialUpdated: (identifier: string, serial: string) => Actions.PRODUCT_SERIAL_UPDATED;
+  productDeleted: (identifier: string) => Actions.PRODUCT_DELETED;
+  productSaveClicked: (product: Product, original: Product) => Actions.PRODUCT_SAVED;
+  productEditCanceled: (identifier: string) => Actions.PRODUCT_EDIT_CANCELED;
 }
 
 export interface Props extends StateProps, ActionProps { }
@@ -38,10 +44,18 @@ export class Orders extends React.Component<Props> {
   render(): React.ReactNode {
     const filteredOrders = this.props.searchText === '' ? this.props.orders : this.props.orders.filter(order => Orders.orderMatches(order, this.props.searchText))
       .map(order => ({ ...order, products: order.products.filter(product => Orders.productMatches(product, this.props.searchText)) }));
+    const productEvents: ProductEvents = {
+      modelUpdated: this.props.productModelUpdated,
+      serialUpdated: this.props.productSerialUpdated,
+      editClicked: this.props.productEditClicked,
+      deleteClicked: this.props.productDeleted,
+      saveClicked: this.props.productSaveClicked,
+      cancelClicked: this.props.productEditCanceled,
+    };
     return (
       <div className="orders-container">
         <OrderPanel orders={filteredOrders} loading={this.props.loading}/>
-        <ProductPanel  {...this.props} orders={filteredOrders}/>
+        <ProductPanel {...this.props} productEvents={productEvents} orders={filteredOrders}/>
       </div>
     );
   }
@@ -51,6 +65,6 @@ export const stateToProps: (state: RootState) => StateProps = state => ({
   ...state.orders,
 });
 
-const dispatchToProps: ActionProps = { getOrders, searchUpdated };
+const dispatchToProps: ActionProps = { ...Actions };
 
 export default connect(stateToProps, dispatchToProps)(Orders);

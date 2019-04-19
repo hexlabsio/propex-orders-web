@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, take, takeEvery } from 'redux-saga/effects';
 import * as Actions from './index-actions';
 import { default as axios, AxiosResponse } from 'axios';
 import { Order } from './index-state';
@@ -14,6 +14,12 @@ export function * getOrders() {
   }
 }
 
+export function * saveProduct({ product, original }: Actions.PRODUCT_SAVED) {
+  console.log(product);
+  yield put<Actions.PRODUCT_SAVE_SUCCESS>({ type: Actions.PRODUCT_SAVE_SUCCESS });
+}
+
 export default [
   takeLatest(Actions.GET_ORDERS_REQUEST, getOrders),
+  takeLatest(Actions.PRODUCT_SAVED, saveProduct),
 ];

@@ -1,7 +1,9 @@
 @import '../../../colors'
 
 .products-panel
+  display: flex
   flex: 5
+  flex-direction: column
 
   .empty-message
     border: 1px dashed $gainsboro
@@ -43,6 +45,7 @@
 
     .header-row
       align-items: center
+      background-color: $snow
       border-bottom: 1px solid $gainsboro
       display: flex
 
@@ -64,7 +67,19 @@
           background-color: $humming-bird
           cursor: pointer
 
+    .product-input
+      background-color: transparent
+      border: 0
+      border-radius: .25em
+      padding: .5em
+      text-align: center
+      text-overflow: ellipsis
+
+      &.active
+        border: 1px solid $dodger-blue
+
     .row
+      align-items: center
       display: flex
 
       &:nth-child(2n+1)

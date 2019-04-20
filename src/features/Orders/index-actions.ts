@@ -17,6 +17,8 @@ export const PRODUCT_SAVED = '@@orders/PRODUCT_SAVED';
 export const PRODUCT_EDIT_CANCELED = '@@orders/PRODUCT_EDIT_CANCELED';
 export const PRODUCT_SAVE_ERROR = '@@orders/PRODUCT_SAVE_ERROR';
 export const PRODUCT_SAVE_SUCCESS = '@@orders/PRODUCT_SAVE_SUCCESS';
+export const PRODUCT_DELETE_SUCCESS = '@@orders/PRODUCT_DELETE_SUCCESS';
+export const PRODUCT_DELETE_ERROR = '@@orders/PRODUCT_DELETE_ERROR';
 
 export type SEARCH_UPDATED = { type: typeof SEARCH_UPDATED, search: string };
 export type PRODUCT_EDIT_CLICKED = { type: typeof PRODUCT_EDIT_CLICKED, product: Product };
@@ -27,6 +29,8 @@ export type PRODUCT_SAVED = { type: typeof PRODUCT_SAVED, product: Product, orig
 export type PRODUCT_SAVE_SUCCESS = { type: typeof PRODUCT_SAVE_SUCCESS };
 export type PRODUCT_SAVE_ERROR = { type: typeof PRODUCT_SAVE_ERROR, error: Error };
 export type PRODUCT_EDIT_CANCELED = { type: typeof PRODUCT_EDIT_CANCELED, identifier: string };
+export type PRODUCT_DELETE_SUCCESS = { type: typeof PRODUCT_DELETE_SUCCESS };
+export type PRODUCT_DELETE_ERROR = { type: typeof PRODUCT_DELETE_ERROR, error: Error };
 
 type ORDERS_ACTIONS = GET_ORDERS_REQUEST | GET_ORDERS_SUCCESS | GET_ORDERS_ERROR;
 
@@ -47,4 +51,7 @@ export type ACTIONS = ORDERS_ACTIONS |
   PRODUCT_DELETED |
   PRODUCT_EDIT_CANCELED |
   PRODUCT_SAVED |
-  PRODUCT_SAVE_SUCCESS;
+  PRODUCT_SAVE_SUCCESS |
+  PRODUCT_SAVE_ERROR |
+  PRODUCT_DELETE_SUCCESS |
+  PRODUCT_DELETE_ERROR;

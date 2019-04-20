@@ -3,7 +3,15 @@ export interface OrdersState {
   searchText: string;
   loading: boolean;
   error?: Error;
-  productInEdit?: Product;
+  activeProduct?: ActiveProduct;
+}
+
+export interface ActiveProduct {
+  product: Product;
+  original: Product;
+  saving: boolean;
+  deleting: boolean;
+  error?: Error;
 }
 
 export interface Order {

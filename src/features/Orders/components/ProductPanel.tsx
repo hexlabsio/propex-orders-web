@@ -1,5 +1,5 @@
 import { default as React } from 'react';
-import { Order, Product, ProductEvents } from '../index-state';
+import { ActiveProduct, Order, ProductEvents } from '../index-state';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faSpinner, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { default as OperationBar, Props as OperationBarProps } from './OperationBar';
@@ -11,7 +11,7 @@ export interface Props {
   orders?: Order[];
   loading?: boolean;
   searchText?: string;
-  productInEdit?: Product;
+  activeProduct?: ActiveProduct;
   searchUpdated?: (search: string) => void;
   productEvents?: ProductEvents;
 }
@@ -24,7 +24,7 @@ const defaultProductEvents: ProductEvents = {
   cancelClicked: () => {},
 };
 
-const productPanel = ({ orders = [], loading = false, searchText = '', productInEdit, productEvents = defaultProductEvents, searchUpdated = () => {} }: Props) => {
+const productPanel = ({ orders = [], loading = false, searchText = '', activeProduct, productEvents = defaultProductEvents, searchUpdated = () => {} }: Props) => {
   const operationBarProps: OperationBarProps = {
     search: { text: searchText, onChange: searchUpdated },
     operations: [
@@ -53,7 +53,7 @@ const productPanel = ({ orders = [], loading = false, searchText = '', productIn
     <div className="products-panel">
       {orders.length === 0 && !loading && searchText === '' ? <></> : topPanel()}
       <div className="products-panel-content">
-        {loading ? <FontAwesomeIcon icon={faSpinner} spin={true}/> : (orders.length === 0 && searchText === '' ? empty() : orders.map(order => <OrderComponent productEvents={productEvents} productInEdit={productInEdit} order={order} onClick={scrollTo} key={order.identifier} />))}
+        {loading ? <FontAwesomeIcon icon={faSpinner} spin={true}/> : (orders.length === 0 && searchText === '' ? empty() : orders.map(order => <OrderComponent productEvents={productEvents} activeProduct={activeProduct} order={order} onClick={scrollTo} key={order.identifier} />))}
       </div>
     </div>
   );

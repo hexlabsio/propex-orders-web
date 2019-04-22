@@ -12,7 +12,7 @@ export interface Props {
 }
 
 export const order = (order: Order) => {
-  const time = moment.unix(order.dateTime).format('Do MMM YYYY');
+  const time = moment.utc(order.dateTime, 'YYYY-MM-DD').format('Do MMM YYYY');
   const scrollTo = () => {
     const item = document.getElementById(`product-${order.identifier}`);
     if (item) item.scrollIntoView({ behavior: 'smooth', block: 'start' });

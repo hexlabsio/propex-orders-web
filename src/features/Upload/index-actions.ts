@@ -22,4 +22,4 @@ export const serialFound: (serial: string) => SERIAL_FOUND = serial => ({ serial
 export const clearUpload: () => UPLOAD_CLEARED = () => ({ type: UPLOAD_CLEARED });
 export const uploadRequested: (orders: Order[]) => UPLOAD_REQUESTED = orders => ({ orders, type: UPLOAD_REQUESTED });
 
-export type ACTIONS = ORDER_FOUND | MODEL_FOUND | SERIAL_FOUND | UPLOAD_CLEARED | UPLOAD_SUCCESS | UPLOAD_ERROR;
+export type ACTIONS = ORDER_FOUND | MODEL_FOUND | SERIAL_FOUND | UPLOAD_CLEARED | UPLOAD_SUCCESS | UPLOAD_ERROR | UPLOAD_REQUESTED;

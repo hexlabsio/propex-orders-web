@@ -41,14 +41,14 @@ export class Upload extends React.Component<Props> {
         const input = e.target as HTMLInputElement;
         const item = input.value;
         input.value = '';
-        if (item.length === 5) this.props.orderFound({ identifier: uuid(), order: item, dateTime: moment.utc().unix(), products: [] });
+        if (item.length === 5) this.props.orderFound({ identifier: uuid(), order: item, dateTime: moment.utc().format('YYYY-MM-DD'), products: [] });
         else if (this.props.productAdded) this.props.serialFound(item);
         else this.props.modelFound(item);
       }
     };
     const orders = this.props.orders;
     const operations: Operation[] = [
-      { key: 'upload', label: 'Upload', icon: faUpload, loading: false, displayed: true, enabled: orders.length > 0 },
+      { key: 'upload', label: 'Upload', icon: faUpload, loading: this.props.uploading, displayed: true, enabled: orders.length > 0 },
       { key: 'clear', label: 'Clear', icon: faWindowClose, loading: false, displayed: true, enabled: orders.length > 0 },
     ];
     const operationClicked = (operation: string) => {
@@ -82,7 +82,7 @@ export class Upload extends React.Component<Props> {
               placeholder={Upload.barcodeInputHasFocus() ? 'Scan \'Data Upload\' Barcode ...' : 'Click here to begin'}
               onKeyPress={onChange}
             />
-            <OperationBar  operations={operations} operationClicked={operationClicked}/>
+            <OperationBar operations={operations} operationClicked={operationClicked}/>
           </div>
           <div className="products-panel-content upload-content">
             {orders.map(order => <OrderComponent key={order.identifier} productEvents={productEvents} order={order} />)}

@@ -22,16 +22,16 @@ describe('<ProductPanel />', () => {
 
   it('should render loading icon when loading', () => {
     const productsPanel = mount(<ProductPanel loading={true}/>);
-    expect(productsPanel.contains(<FontAwesomeIcon icon={faSpinner} spin={true}/>)).to.be.true;
+    expect(productsPanel.contains(<FontAwesomeIcon className="loading-icon" icon={faSpinner} spin={true}/>)).to.be.true;
   });
 
   it('should list all orders and products', () => {
     const orders: Order[] = [
-      { identifier: '1', order: '1', dateTime: 1, products: [
+      { identifier: '1', order: '1', dateTime: '1970-01-01', products: [
           { identifier: 'a', serial: 'a', model: 'b' },
           { identifier: 'b', serial: 'c', model: 'd' },
       ] },
-      { identifier: '2', order: '2', dateTime: 176400, products: [
+      { identifier: '2', order: '2', dateTime: '1970-01-03', products: [
           { identifier: 'c', serial: 'e', model: 'f' },
       ] },
     ];

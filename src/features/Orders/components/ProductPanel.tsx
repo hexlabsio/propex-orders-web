@@ -1,12 +1,14 @@
 import { default as React } from 'react';
 import { ActiveProduct, Order, ProductEvents } from '../index-state';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload, faSpinner, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment';
+import { default as Toolbar, Props as ToolbarProps } from './Toolbar';
 import { default as OperationBar, Props as OperationBarProps } from './OperationBar';
 import { default as OrderComponent } from  './Order';
 import './ProductPanel.sass';
 import { Link } from 'react-router-dom';
-
+import 'react-datepicker/dist/react-datepicker.css';
 export interface Props {
   orders?: Order[];
   loading?: boolean;
@@ -14,6 +16,7 @@ export interface Props {
   activeProduct?: ActiveProduct;
   searchUpdated?: (search: string) => void;
   productEvents?: ProductEvents;
+  operationBar?: OperationBarProps;
 }
 const defaultProductEvents: ProductEvents = {
   modelUpdated: () => {},
@@ -24,15 +27,18 @@ const defaultProductEvents: ProductEvents = {
   cancelClicked: () => {},
 };
 
-const productPanel = ({ orders = [], loading = false, searchText = '', activeProduct, productEvents = defaultProductEvents, searchUpdated = () => {} }: Props) => {
-  const operationBarProps: OperationBarProps = {
-    search: { text: searchText, onChange: searchUpdated },
-    operations: [
-      { key: 'upload', label: 'Upload', enabled: true, displayed: true, loading: false, icon: faUpload, link: '/upload' },
-      { key: 'export', label: 'Export', enabled: true, displayed: true, loading: false, icon: faDownload },
-    ],
-    operationClicked: (key: string) => {},
-  };
+const defaultOperationBar: OperationBarProps = {
+  toolbar: {
+    startDateUpdated: () => {},
+    endDateUpdated: () => {},
+  },
+  search: { text: '', onChange: () => {} },
+  operations: [],
+  operationClicked: () => {},
+};
+
+const productPanel = (props: Props) => {
+  const { orders = [], loading = false, searchText = '', operationBar = defaultOperationBar, productEvents = defaultProductEvents } = props;
   const scrollTo = (order: Order) => {
     const item = document.getElementById(`order-${order.identifier}`);
     if (item) item.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -46,14 +52,14 @@ const productPanel = ({ orders = [], loading = false, searchText = '', activePro
   );
   const topPanel = () => (
       <div className="products-panel-top">
-        {!loading ? <OperationBar {...operationBarProps}/> : <></>}
+        {!loading ? <OperationBar {...operationBar}/> : <></>}
       </div>
   );
   return (
     <div className="products-panel">
       {orders.length === 0 && !loading && searchText === '' ? <></> : topPanel()}
       <div className="products-panel-content">
-        {loading ? <FontAwesomeIcon icon={faSpinner} spin={true}/> : (orders.length === 0 && searchText === '' ? empty() : orders.map(order => <OrderComponent productEvents={productEvents} activeProduct={activeProduct} order={order} onClick={scrollTo} key={order.identifier} />))}
+        {loading ? <FontAwesomeIcon className="loading-icon" icon={faSpinner} spin={true}/> : (orders.length === 0 && searchText === '' ? empty() : orders.map(order => <OrderComponent productEvents={productEvents} activeProduct={props.activeProduct} order={order} onClick={scrollTo} key={order.identifier} />))}
       </div>
     </div>
   );

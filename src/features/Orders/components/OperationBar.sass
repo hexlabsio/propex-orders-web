@@ -4,18 +4,19 @@
   align-items: center
   display: flex
   flex-wrap: wrap
+  justify-content: center
 
-  .operation-search
-    border: 1px solid $gainsboro
-    border-radius: 1em
-    flex: 1
-    font-size: 1.5em
-    font-weight: 100
-    margin: .5em
-    padding: .5em 1em
+.operation-search
+  border: 1px solid $gainsboro
+  border-radius: 1em
+  flex: 1
+  font-size: 1.5em
+  font-weight: 100
+  margin: .5em
+  padding: .5em 1em
 
-    &:focus
-      border: 1px solid $iris-blue
+  &:focus
+    border: 1px solid $iris-blue
 
 .operations
   display: flex
@@ -29,6 +30,7 @@
     border-radius: .25em
     color: $white
     cursor: pointer
+    display: flex
     margin-right: .5em
     padding: .6em 1em
 
@@ -36,5 +38,5 @@
       background-color: $gainsboro
       cursor: not-allowed
 
-    svg
-      margin-right: .5em
+    .operation-text
+      margin-left: .5em

@@ -12,15 +12,17 @@ export interface Props {
 }
 
 export const order = ({ order, activeProduct, productEvents, onClick = () => {} }: Props) => {
-  const time = moment.unix(order.dateTime).format('Do MMM YYYY');
+  const time = moment.utc(order.dateTime, 'YYYY-MM-DD').format('Do MMM YYYY');
   const productRow = (product: Product, index: number) => {
-    const inEdit = activeProduct && product.identifier === activeProduct.product.identifier;
-    const otherInEdit = !!activeProduct;
+    const inEdit = activeProduct && !activeProduct.deleting && product.identifier === activeProduct.product.identifier;
+    const otherInEdit = activeProduct && product.identifier !== activeProduct.product.identifier;
     const active: ActiveProduct = activeProduct ? activeProduct : { product, original: product, saving: false, deleting: false };
     const defaultActions = (
         <>
-          <div className="enabled-action" onClick={() => productEvents.editClicked(product)}><FontAwesomeIcon icon={faPencilAlt} /></div>
-          <div className="enabled-action" onClick={() => productEvents.deleteClicked(product.identifier)}><FontAwesomeIcon icon={faTrash} /></div>
+          <div className="enabled-action" onClick={() => { if (!active.saving && ! active.deleting) productEvents.editClicked(product); }}><FontAwesomeIcon icon={faPencilAlt} /></div>
+          <div className="enabled-action" onClick={() => { if (!active.saving && ! active.deleting) productEvents.deleteClicked(product); }}>
+            {active.deleting ? <FontAwesomeIcon spin={true} icon={faSpinner} /> : <FontAwesomeIcon icon={faTrash} />}
+          </div>
         </>
     );
     const canSave = activeProduct && inEdit && ((activeProduct.product.model !== product.model) || (activeProduct.product.serial !== product.serial));

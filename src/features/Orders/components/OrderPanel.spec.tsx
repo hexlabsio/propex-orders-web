@@ -24,9 +24,9 @@ describe('<OrderPanel />', () => {
 
   it('should list all orders', () => {
     const orders: Order[] = [
-      { order: '1', dateTime: 1, products: [] },
-      { order: '2', dateTime: 2, products: [] },
-      { order: '3', dateTime: 176400, products: [] },
+      { order: '1', dateTime: '1970-01-01', products: [] },
+      { order: '2', dateTime: '1970-01-01', products: [] },
+      { order: '3', dateTime: '1970-01-03', products: [] },
     ];
     const orderPanel = mount(<OrderPanel orders={orders} loading={false}/>);
     const renderedOrders = orderPanel.find('.order');
@@ -39,7 +39,7 @@ describe('<OrderPanel />', () => {
 
   it('should display human readable date format', () => {
     const orders: Order[] = [
-      { order: '1', dateTime: 1554119390, products: [] },
+      { order: '1', dateTime: '2019-04-01', products: [] },
     ];
     const orderPanel = mount(<OrderPanel orders={orders} loading={false}/>);
     expect(orderPanel.find('.order-time').text()).to.equal('1st Apr 2019');

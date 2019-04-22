@@ -4,10 +4,16 @@ import { default as initialState, UploadState } from './index-state';
 import { Product } from '../Orders/index-state';
 import uuid from 'uuid';
 
-const reducer: Reducer<UploadState, Actions.ACTIONS> = (state = initialState, action) => {
+const ROUTER_LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+
+const reducer: Reducer<UploadState, Actions.ACTIONS | { type: typeof ROUTER_LOCATION_CHANGE}> = (state = initialState, action) => {
   switch (action.type) {
     case Actions.ORDER_FOUND: return { ...state, productAdded: false, orders: [...state.orders, action.order] };
+    case ROUTER_LOCATION_CHANGE:
     case Actions.UPLOAD_CLEARED: return { ...state, productAdded: false, orders: [] };
+    case Actions.UPLOAD_REQUESTED: return { ...state, uploading: true };
+    case Actions.UPLOAD_SUCCESS:
+    case Actions.UPLOAD_ERROR: return { ...state, uploading: false };
     case Actions.MODEL_FOUND: return modifyLatestProduct(state, product => ({ ...product, model: action.model }));
     case Actions.SERIAL_FOUND: return modifyLatestProduct(state, product => ({ ...product, serial: action.serial }));
     default: return state;
